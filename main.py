@@ -13,7 +13,7 @@ class VideoApp(QWidget):
         # Khởi tạo các luồng
         self.capture_thread = ThreadCapture(video_path="data/video2.mp4")
         self.process_thread = ThreadProcessing()
-        self.stream_thread = ThreadStream(self.video_view, self.fps_label)  # Truyền QGraphicsView
+        self.stream_thread = ThreadStream(self.video_view, self.fps_label)  
 
         # Kết nối tín hiệu
         self.capture_thread.new_frame.connect(self.process_thread.process_frame)
@@ -29,7 +29,7 @@ class VideoApp(QWidget):
         self.setWindowTitle("Multi-threaded Video Processing")
         self.setGeometry(100, 100, 800, 600)
 
-        self.video_view = QGraphicsView(self)  # Sử dụng QGraphicsView thay vì QLabel
+        self.video_view = QGraphicsView(self)  
         self.fps_label = QLabel("FPS: 0", self)
 
         layout = QVBoxLayout()
