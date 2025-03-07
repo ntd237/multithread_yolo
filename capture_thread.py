@@ -30,4 +30,15 @@ class ThreadCapture(QThread):
         self.wait()
 
 
-
+"""
+tóm tắt luồng hoạt động
+- Khởi động thread:
+    Khi gọi ThreadCapture.start(), PyQt5 sẽ chạy hàm run() trong luồng riêng
+- Xử lý video:
+    Mở video bằng cv2.VideoCapture()
+    Liên tục đọc từng khung hình
+    Gửi khung hình qua new_frame.emit(frame)
+    Đảm bảo tốc độ phát không vượt quá 30 FPS bằng cách tính thời gian và sleep
+- Dừng thread:
+    Khi gọi stop(), đặt self.running = False, thoát vòng lặp, dừng thread
+"""

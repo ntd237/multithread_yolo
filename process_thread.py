@@ -61,3 +61,23 @@ class ThreadProcessing(QThread):
             self.video_writer.release()
             self.video_writer = None
             self.video_saved.emit()
+
+"""
+Tóm tắt luồng hoạt động
+- Nhận frame từ capture_thread:
+    Frame được đưa vào hàng đợi (self.frame_queue)
+- Xử lý với YOLOv8:
+    Lấy frame ra khỏi hàng đợi
+    Dự đoán đối tượng trong frame
+    Vẽ kết quả lên frame
+    Tính toán FPS
+- Ghi video & gửi frame đã xử lý:
+    Nếu chưa có video_writer, tạo mới
+    Lưu frame vào video output.mp4
+    Gửi frame và FPS đến giao diện chính
+- Điều chỉnh tốc độ xử lý:
+    Đảm bảo video chạy đúng tốc độ (30 FPS)
+- Dừng thread:
+    Dừng vòng lặp xử lý khi stop() được gọi
+    Giải phóng bộ nhớ và kết thúc ghi video
+"""

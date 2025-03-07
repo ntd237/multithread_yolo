@@ -21,8 +21,8 @@ class ThreadStream(QThread):
             return
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        height, width, channel = frame.shape
-        bytes_per_line = 3 * width
+        height, width, channel = frame.shape # Lấy kích thước hình ảnh
+        bytes_per_line = 3 * width # mỗi pixel có 3 kênh màu (RGB)
         qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
 
         # Cập nhật hình ảnh trong QGraphicsScene
@@ -31,3 +31,16 @@ class ThreadStream(QThread):
 
         # Cập nhật FPS
         self.fps_label.setText(f"FPS: {fps:.2f}")
+
+"""
+tóm tắt luồng hoạt động
+- Nhận frame từ process_thread.py:
+    display_frame(frame, fps) được gọi khi có frame mới
+- Chuyển đổi frame:
+    Chuyển từ BGR (OpenCV) sang RGB (PyQt)
+    Tạo QImage để hiển thị
+- Cập nhật giao diện:
+    Cập nhật hình ảnh trong QGraphicsScene
+    Hiển thị FPS
+- Lặp lại quá trình này với frame tiếp theo
+"""

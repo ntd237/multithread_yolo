@@ -27,7 +27,7 @@ class VideoApp(QWidget):
     def init_ui(self):
         """Khởi tạo giao diện PyQt5"""
         self.setWindowTitle("Multi-threaded Video Processing")
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 1000, 600) # x, y, width, height
 
         self.video_view = QGraphicsView(self)  
         self.fps_label = QLabel("FPS: 0", self)
@@ -42,7 +42,7 @@ class VideoApp(QWidget):
         self.capture_thread.stop()
         self.process_thread.stop()
         self.stream_thread.running = False
-        event.accept()
+        event.accept() # chấp nhận sự kiện đóng cửa sổ
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
