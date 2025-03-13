@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
 from PyQt5.QtCore import Qt
 from capture_thread import ThreadCapture
-from process_thread import ThreadProcessing
+from process_thread import ThreadProcess
 from stream_thread import ThreadStream
 
 class VideoApp(QWidget):
@@ -11,8 +11,8 @@ class VideoApp(QWidget):
         self.init_ui()
 
         # Khởi tạo các luồng
-        self.capture_thread = ThreadCapture(video_path="data/video2.mp4")
-        self.process_thread = ThreadProcessing()
+        self.capture_thread = ThreadCapture(video_path="data/XLBM.CAM.06.avi")
+        self.process_thread = ThreadProcess()
         self.stream_thread = ThreadStream(self.video_view, self.fps_label)  
 
         # Kết nối tín hiệu
@@ -27,9 +27,10 @@ class VideoApp(QWidget):
     def init_ui(self):
         """Khởi tạo giao diện PyQt5"""
         self.setWindowTitle("Multi-threaded Video Processing")
-        self.setGeometry(100, 100, 1000, 600) # x, y, width, height
+        self.setGeometry(100, 100, 1200, 800) # x, y, width, height
 
         self.video_view = QGraphicsView(self)  
+        
         self.fps_label = QLabel("FPS: 0", self)
 
         layout = QVBoxLayout()
@@ -43,6 +44,13 @@ class VideoApp(QWidget):
         self.process_thread.stop()
         self.stream_thread.running = False
         event.accept() # chấp nhận sự kiện đóng cửa sổ
+
+    def resizeEvent(self, event):
+        """Cập nhật kích thước video khi cửa sổ thay đổi"""
+        if self.video_view.scene():
+            self.video_view.fitInView(self.video_view.scene().sceneRect(), Qt.KeepAspectRatio)
+        super().resizeEvent(event)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -5,9 +5,10 @@ from PyQt5.QtCore import QThread, pyqtSignal
 class ThreadCapture(QThread):
     new_frame = pyqtSignal(object)
 
-    def __init__(self, video_path="data/video2.mp4"):
+    def __init__(self, video_path):
         super().__init__()
-        self.cap = cv2.VideoCapture(video_path)
+        # self.cap = cv2.VideoCapture(video_path)
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_FFMPEG)
         self.running = True
 
     def run(self):

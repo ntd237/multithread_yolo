@@ -16,6 +16,3 @@ def draw_results(frame, results, fps):
     # Hiển thị FPS
     cv2.putText(frame, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
     return frame
-
-
-

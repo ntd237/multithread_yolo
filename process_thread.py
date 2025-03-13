@@ -6,7 +6,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from ultralytics import YOLO
 from utils import draw_results
 
-class ThreadProcessing(QThread):
+class ThreadProcess(QThread):
     processed_frame = pyqtSignal(object, float)
     video_saved = pyqtSignal()
 
